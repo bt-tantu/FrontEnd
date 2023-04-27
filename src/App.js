@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import TeacherLayout from './layouts/TeacherLayout';
+import SecondLayout from './layouts/SecondLayout';
 import Courses from './components/Teacher/Courses';
 import Login from './components/Common/Login';
 import LoginForm from './components/Common/LoginForm';
@@ -9,6 +9,7 @@ import CoursePoints from './components/Teacher/CoursePoints';
 import ForgetPassForm from './components/Common/ForgetPassForm';
 import DefaultLayout from './layouts/DefaultLayout';
 import HeaderTeacher from './layouts/Teacher/HeaderTeacher';
+import Page404 from './views/Page404';
 
 function App() {
   return (
@@ -16,13 +17,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<LoginForm />} />
-          <Route path='/login' element={<Login />} />
+          <Route path='/login' element={<LoginForm />} />
           <Route path='/register' element={<RegisterForm />} />
           <Route path='/forget-pass' element={<ForgetPassForm />} />
           <Route path='/admin'>
 
           </Route>
-          <Route path='/teacher' element={<TeacherLayout />}>
+          <Route path='/teacher' element={<SecondLayout header={<HeaderTeacher/>}/>}>
             <Route path='courses' element={<Courses />} />
             <Route path='courses/:courseId' element={<CoursePoints />}/>
           </Route>
@@ -30,7 +31,7 @@ function App() {
           {/* /courses/2/lessons */}
 
           </Route>
-          <Route path='*' element={<h1>404</h1>}></Route>
+          <Route path='*' element={<Page404/>}></Route>
         </Routes>
       </BrowserRouter>
 

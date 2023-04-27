@@ -2,9 +2,9 @@ import { Card, Col } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
 const Items = ({obj, type}) => {
-    let url = `/teacher/courses/${obj.id}/lessons`
-    if (type === 'lesson')
-        url = `/lessons/${obj.id}`
+    let url = `/teacher/courses/${obj.id}/`
+    // if (type === 'lesson')
+    //     url = `/lessons/${obj.id}`
 
     return (
         <Col md={3} xs={12} className="p-2">
