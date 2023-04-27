@@ -7,6 +7,8 @@ import LoginForm from './components/Common/LoginForm';
 import RegisterForm from './components/Common/RegisterForm';
 import CoursePoints from './components/Teacher/CoursePoints';
 import ForgetPassForm from './components/Common/ForgetPassForm';
+import DefaultLayout from './layouts/DefaultLayout';
+import HeaderTeacher from './layouts/Teacher/HeaderTeacher';
 
 function App() {
   return (
@@ -22,9 +24,9 @@ function App() {
           </Route>
           <Route path='/teacher' element={<TeacherLayout />}>
             <Route path='courses' element={<Courses />} />
-            <Route path='mark' element={<CoursePoints />}/>
+            <Route path='courses/:courseId' element={<CoursePoints />}/>
           </Route>
-          <Route path='/student'>
+          <Route path='/student' element={<DefaultLayout header={<HeaderTeacher/>} sidebar={<></>}/>}>
           {/* /courses/2/lessons */}
 
           </Route>

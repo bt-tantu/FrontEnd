@@ -5,10 +5,11 @@ import Loading from "../../layouts/Common/Loading";
 import ModalPopUp from "./ModalPopUp";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useParams } from "react-router-dom";
 
 
 const CoursePoints = () => {
-
+    let {courseId} = useParams();
     const [coursePoints, setCoursePoints] = useState(null);
     const [upload, setUpload] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
