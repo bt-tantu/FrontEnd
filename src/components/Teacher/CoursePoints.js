@@ -12,13 +12,8 @@ const CoursePoints = () => {
     let {courseId} = useParams();
     const [coursePoints, setCoursePoints] = useState(null);
     const [upload, setUpload] = useState(null);
+    const [exportList, setExportList] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
-    const [isFilePicked, setIsFilePicked] = useState(false);
-    const [username, setUsername] = useState()
-    const [email, setEmail] = useState()
-    const [firstName, setFirstName] = useState()
-    const [lastName, setLastName] = useState()
-    const [loading, setLoading] = useState(false)
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -38,15 +33,20 @@ const CoursePoints = () => {
         loadCoursePoint()
 
         const uploadFile = async () => {
-            let res = await API.get(endpoints['upload'])
+            let res = await API.post(endpoints['upload'])
             setUpload(res.data)
         }
         uploadFile()
+
+        const exportFile = async () => {
+            let res = await API.post(endpoints['export'])
+            setUpload(res.data)
+        }
+        exportFile()
+
     }, [show])
 
     if (coursePoints === null) return <Loading />
-
-
 
     const changeHandler = (event) => {
         setSelectedFile(event.target.files[0]);
@@ -58,7 +58,7 @@ const CoursePoints = () => {
         formData.append('File', selectedFile);
 
         const uploadFile = async () => {
-            let res = await API.get(endpoints['upload'])
+            let res = await API.post(endpoints['upload'])
             setUpload(res.data)
         }
         uploadFile();
@@ -66,10 +66,20 @@ const CoursePoints = () => {
         notify();
     };
 
+
+    const handleExportFile = () => {
+        const exportFile = async () => {
+            let res = await API.post(endpoints['export'])
+            setUpload(res.data)
+        }
+        exportFile();
+    };
+
     return (
         <>
             <h1 className="text-center">Chấm điểm</h1>
-            <Button variant="primary" onClick={handleFileShow} className="align-items-end">Upload</Button>
+            <Button variant="primary" onClick={handleFileShow} className="align-items-end">Import</Button>
+            <Button variant="primary" onClick={handleExportFile} className="align-items-end">Export</Button>
             <ToastContainer />  
             <Table striped bordered hover>
                 <thead>
@@ -89,7 +99,7 @@ const CoursePoints = () => {
                             <td>{user.username}</td>
                             <td>
                                 <Button variant="primary" onClick={handleShow} className="btn-editUser">
-                                    Launch demo modal
+                                    Chỉnh sửa
                                 </Button>
                             </td>
                             {show ? <ModalPopUp show={show} handleClose={handleClose} user={user} /> : false}
@@ -113,8 +123,9 @@ const CoursePoints = () => {
                     </Form>
 
                 </Modal.Body>
-
             </Modal>
+
+
 
 
         </>
