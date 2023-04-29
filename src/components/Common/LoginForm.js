@@ -1,9 +1,34 @@
+import { useEffect, useState } from "react";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import API, { endpoints } from "../../configs/API";
 
 export default function Login() {
+  const [arrUser, setArrUser] = useState(null)
+  const currentUser = undefined;
+  const email = document.getElementById("formBasicEmail")
+  const password = document.getElementById("formBasicPassword")
+
+  useEffect(() => {
+    const loadUser = async () => {
+        let res = await API.get(endpoints['users'])
+        setArrUser(res.data)
+    }
+    loadUser()
+  }, [])
+
+  
+  
   const login = (event) => {
     event.preventDefault();
+    const data = {
+      email: email.value,
+      password: password.value
+    }
+
+    const user = arrUser.find(user => user.email === data.email)
+    console.log(user)
+
   };
   return (
     <div>

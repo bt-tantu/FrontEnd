@@ -10,6 +10,7 @@ import ForgetPassForm from './components/Common/ForgetPassForm';
 import DefaultLayout from './layouts/DefaultLayout';
 import HeaderTeacher from './layouts/Teacher/HeaderTeacher';
 import Page404 from './views/Page404';
+import ChatRoom from './components/Common/ChatRoom';
 
 function App() {
   return (
@@ -20,16 +21,18 @@ function App() {
           <Route path='/login' element={<LoginForm />} />
           <Route path='/register' element={<RegisterForm />} />
           <Route path='/forget-pass' element={<ForgetPassForm />} />
+          <Route path='/chat' element={<ChatRoom />}/>
           <Route path='/admin'>
 
+
           </Route>
+
           <Route path='/teacher' element={<SecondLayout header={<HeaderTeacher/>}/>}>
             <Route path='courses' element={<Courses />} />
             <Route path='courses/:courseId' element={<CoursePoints />}/>
           </Route>
           <Route path='/student' element={<DefaultLayout header={<HeaderTeacher/>} sidebar={<></>}/>}>
           {/* /courses/2/lessons */}
-
           </Route>
           <Route path='*' element={<Page404/>}></Route>
         </Routes>

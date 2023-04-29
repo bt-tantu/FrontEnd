@@ -2,11 +2,10 @@ import Loading from "../../layouts/Common/Loading";
 import { Button, Form, Modal, Table } from "react-bootstrap";
 
 
-const ModalPopUp =({show, handleClose, user: {username, email, firstName, lastName}})=>{
+const ModalPopUp =({show, handleClose, user: {username, email, first_name, last_name}})=>{
     const login =()=>{
-
+        console.log(username, email, first_name, last_name)
     }
-    console.log(firstName)
     return(
         <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
@@ -33,14 +32,14 @@ const ModalPopUp =({show, handleClose, user: {username, email, firstName, lastNa
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>First Name</Form.Label>
                             <Form.Control type="text" 
-                                        value={firstName}
+                                        value={first_name}
                                         onChange={e => (e.target.value)}
                                         placeholder="First Name..." />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Last Name</Form.Label>
                             <Form.Control type="text" 
-                                        value={lastName}
+                                        value={last_name}
                                         onChange={e => (e.target.value)}
                                         placeholder="Last Name..." />
                         </Form.Group>

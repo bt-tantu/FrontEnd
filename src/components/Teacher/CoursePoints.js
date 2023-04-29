@@ -66,10 +66,10 @@ const CoursePoints = () => {
         notify();
     };
 
-
     const handleExportFile = () => {
         const exportFile = async () => {
             let res = await API.post(endpoints['export'])
+            console.log(res.data)
             setUpload(res.data)
         }
         exportFile();

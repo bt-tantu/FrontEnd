@@ -3,9 +3,30 @@ import { Col, Button, Row, Container, Card, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export default function Registration() {
+  const username = document.getElementById('username')
+  const email = document.getElementById('email')
+  const password = document.getElementById('password')
+  const confirmPassword = document.getElementById('confirm-password')
+
     const register = (event) => {
         event.preventDefault()
         console.log("hello register")
+        const data = {
+          username: username.value,
+          email: email.value,
+          password: password.value
+        }
+        console.log(data)
+        if (password.value === confirmPassword.value) {
+          // const bcrypt = require('bcrypt');
+          // const saltRounds = 10;
+          // const myPlaintextPassword = 's0/\/\P4$$w0rD';
+          // const someOtherPlaintextPassword = 'not_bacon';
+          
+          // const salt = bcrypt.genSaltSync(saltRounds)m
+          // const hash = bcrypt.hashSync(myPlaintextPassword, salt)
+          // console.log(hash)
+        }
     }
   return (
     <div>   
@@ -21,15 +42,15 @@ export default function Registration() {
                   <div className="mb-3">
                     <Form onSubmit={(e) => register(e)}>
                       <Form.Group className="mb-3" controlId="Name">
-                        <Form.Label className="text-center">Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter Name" />
+                        <Form.Label className="text-center">UserName</Form.Label>
+                        <Form.Control id='username' type="text" placeholder="Enter UserName" />
                       </Form.Group>
 
                       <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label className="text-center">
                           Email address
                         </Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" />
+                        <Form.Control id='email' type="email" placeholder="Enter email" />
                       </Form.Group>
 
                       <Form.Group
@@ -37,14 +58,14 @@ export default function Registration() {
                         controlId="formBasicPassword"
                       >
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control id='password' type="password" placeholder="Password" />
                       </Form.Group>
                       <Form.Group
                         className="mb-3"
                         controlId="formBasicPassword"
                       >
                         <Form.Label>Confirm Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control id='confirm-password' type="password" placeholder="Confirm Password" />
                       </Form.Group>
                       <Form.Group
                         className="mb-3"
