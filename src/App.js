@@ -11,7 +11,7 @@ import DefaultLayout from './layouts/DefaultLayout';
 import HeaderTeacher from './layouts/Teacher/HeaderTeacher';
 import Page404 from './views/Page404';
 import ChatRoom from './components/Common/ChatRoom';
-
+import Classes from './components/Teacher/Classes';
 function App() {
   return (
     <>
@@ -28,6 +28,7 @@ function App() {
           </Route>
 
           <Route path='/teacher' element={<SecondLayout header={<HeaderTeacher/>}/>}>
+            <Route path='classes' element={<Classes />} />
             <Route path='courses' element={<Courses />} />
             <Route path='courses/:courseId' element={<CoursePoints />}/>
           </Route>
