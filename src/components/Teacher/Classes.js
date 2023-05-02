@@ -8,9 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from "react-router-dom";
 
 
-const CoursePoints = () => {
-    let {courseId} = useParams();
-    const [coursePoints, setCoursePoints] = useState(null);
+const Classes = () => {
+    const [students, setStudents] = useState(null);
     const [upload, setUpload] = useState([]);
     const [exportList, setExportList] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -26,27 +25,15 @@ const CoursePoints = () => {
     const notify = (message) => toast(message);
 
     useEffect(() => {
-        const loadCoursePoint = async () => {
-            let res = await API.get(endpoints['users'])
-            setCoursePoints(res.data)
+        const loadClasses = async () => {
+            let id = 1
+            let res = await API.post(`${endpoints['users']}${id}/students/`, {'classname': 'DH19IT03'})
+            setStudents(res.data)
         }
-        loadCoursePoint()
+        loadClasses()
+    }, [])
 
-        // const uploadFile = async () => {
-        //     let res = await API.post(endpoints['upload'])
-        //     setUpload(res.data)
-        // }
-        // uploadFile()
-
-        // const exportFile = async () => {
-        //     let res = await API.post(endpoints['export'])
-        //     setUpload(res.data)
-        // }
-        // exportFile()
-
-    }, [show])
-
-    if (coursePoints === null) return <Loading />
+    if (students === null) return <Loading />
 
     const changeHandler = (event) => {
         setSelectedFile(event.target.files[0]);
@@ -80,37 +67,28 @@ const CoursePoints = () => {
         }
     };
 
-    const handleExportFile = () => {
-        const exportFile = async () => {
-            let res = await API.post(endpoints['export'])
-            console.log(res.data)
-            setUpload(res.data)
-        }
-        exportFile();
-    };
 
     return (
         <>
-            <h1 className="text-center">Chấm điểm</h1>
-            <Button variant="primary" onClick={handleFileShow} className="align-items-end">Import</Button>
-            <Button variant="primary" onClick={handleExportFile} className="align-items-end">Export</Button>
+            <h1 className="text-center">Danh sach sinh vien lop </h1>
             <ToastContainer />  
             <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Student Number</th>
+                        <th>Email</th>
                         <th>First Name</th>
                         <th>Last Name</th>
-                        <th>Username</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {coursePoints.map((user, index) => (
+                    {students.map((user, index) => (
                         <tr className="btn-doubleClick" key={index}>
+                            <td>{user.student_number}</td>
                             <td>{user.email}</td>
                             <td>{user.first_name}</td>
                             <td>{user.last_name}</td>
-                            <td>{user.username}</td>
                             <td>
                                 <Button variant="primary" onClick={handleShow} className="btn-editUser">
                                     Chỉnh sửa
@@ -138,12 +116,8 @@ const CoursePoints = () => {
 
                 </Modal.Body>
             </Modal>
-
-
-
-
         </>
     )
 }
 
-export default CoursePoints
+export default Classes
