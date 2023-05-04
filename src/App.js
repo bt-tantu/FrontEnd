@@ -12,9 +12,18 @@ import HeaderTeacher from './layouts/Teacher/HeaderTeacher';
 import Page404 from './views/Page404';
 import ChatRoom from './components/Common/ChatRoom';
 import Classes from './components/Teacher/Classes';
+import { createContext, useEffect, useState } from 'react';
+
+const UserContext = createContext()
+
 function App() {
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+  }, [])
+
   return (
-    <>
+    <UserContext.Provider value={user}>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<LoginForm />} />
@@ -39,7 +48,7 @@ function App() {
         </Routes>
       </BrowserRouter>
 
-    </>
+    </UserContext.Provider>
   );
 }
 

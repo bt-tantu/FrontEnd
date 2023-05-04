@@ -10,7 +10,7 @@ const Courses = () => {
 
     useEffect(() => {
         const loadCourses = async () => {
-            let res = await API.get(endpoints['courses'])
+            let res = await API.post(`${endpoints['users']}${1}/course/`)
             setCourses(res.data)
         }
 

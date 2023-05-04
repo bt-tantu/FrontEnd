@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import API, { endpoints } from "../../configs/API"
-import { Button, Form, Modal, Table } from "react-bootstrap";
+import { Button, Col, Container, Form, Modal, Row, Table } from "react-bootstrap";
 import Loading from "../../layouts/Common/Loading";
 import ModalPopUp from "./ModalPopUp";
 import { ToastContainer, toast } from 'react-toastify';
@@ -27,8 +27,24 @@ const CoursePoints = () => {
 
     useEffect(() => {
         const loadCoursePoint = async () => {
-            let res = await API.get(endpoints['users'])
-            setCoursePoints(res.data)
+            let res = await API.post(`${endpoints['courses']}${courseId}/mark/`)
+            const student_id = [...new Set(res.data.map(item => item.student.id))]
+
+            const fdata = student_id.map(id =>{ 
+                let filter_stu = res.data.filter(item => item.student.id == id)
+                let result = filter_stu.map(item => (
+                    {grade: item.grade, mark_type: item.mark_type.type}
+                ))
+                return {
+                    student_id: id, 
+                    first_name: filter_stu[0].student.first_name, 
+                    last_name: filter_stu[0].student.last_name,
+                    username: filter_stu[0].student.username, 
+                    mark: result
+                }
+            })
+            console.log(fdata)
+            setCoursePoints(fdata)
         }
         loadCoursePoint()
 
@@ -90,27 +106,38 @@ const CoursePoints = () => {
     };
 
     return (
-        <>
+        <Container>
             <h1 className="text-center">Chấm điểm</h1>
-            <Button variant="primary" onClick={handleFileShow} className="align-items-end">Import</Button>
+            <Button variant="primary" onClick={handleFileShow} className="m-2 align-items-end">Import</Button>
             <Button variant="primary" onClick={handleExportFile} className="align-items-end">Export</Button>
             <ToastContainer />  
             <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Email</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Username</th>
+                        <th>Giữa kỳ</th>
+                        <th>Cuối kỳ</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {coursePoints.map((user, index) => (
+                    {coursePoints.map((user, index) => {
+                        let gk = user.mark.find(item => item.mark_type === "Giữa kỳ") 
+                        let ck = user.mark.find(item => item.mark_type === "Cuối kỳ")
+                        return (
                         <tr className="btn-doubleClick" key={index}>
+                            <td>{index + 1}</td>
                             <td>{user.email}</td>
                             <td>{user.first_name}</td>
                             <td>{user.last_name}</td>
                             <td>{user.username}</td>
+                            <td>{
+                              gk ? gk.grade : ''
+                            }</td>
+                            <td>{ck ? ck.grade : ''}</td>
                             <td>
                                 <Button variant="primary" onClick={handleShow} className="btn-editUser">
                                     Chỉnh sửa
@@ -119,7 +146,7 @@ const CoursePoints = () => {
                             {show ? <ModalPopUp show={show} handleClose={handleClose} user={user} /> : false}
                         </tr>
 
-                    ))}
+                    )})}
                 </tbody>
             </Table>
 
@@ -142,7 +169,7 @@ const CoursePoints = () => {
 
 
 
-        </>
+        </Container>
     )
 }
 

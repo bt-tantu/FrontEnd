@@ -70,7 +70,7 @@ const Classes = () => {
 
     return (
         <>
-            <h1 className="text-center">Danh sach sinh vien lop </h1>
+            <h1 className="text-center">Danh sách sinh viên lớp DH19IT03 </h1>
             <ToastContainer />  
             <Table striped bordered hover>
                 <thead>
@@ -85,6 +85,7 @@ const Classes = () => {
                 <tbody>
                     {students.map((user, index) => (
                         <tr className="btn-doubleClick" key={index}>
+                            <td>{index + 1}</td>
                             <td>{user.student_number}</td>
                             <td>{user.email}</td>
                             <td>{user.first_name}</td>
