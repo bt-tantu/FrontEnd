@@ -12,7 +12,7 @@ const Items = ({obj, type}) => {
                 <Card.Img variant="top" src={obj.image} />
                 <Card.Body>
                     <Card.Title>{obj.subject}</Card.Title>
-                    <Card.Title>{obj.tutor}</Card.Title>
+                    <Card.Title>{obj.tutor.first_name ? obj.tutor.first_name : '' + " " + obj.tutor.last_name ? obj.tutor.last_name : ''}</Card.Title>
                     <Link to={url} className="btn btn-primary">Xem chi tiết</Link>
                 </Card.Body>
             </Card>
