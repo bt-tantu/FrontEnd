@@ -19,6 +19,6 @@ export const authAPI = () => axios.create({
 })
 
 export default axios.create({
-    baseURL: "http://latrunghieuvt1.pythonanywhere.com/"
-    // baseURL: "http://127.0.0.1:8000/",
+    // baseURL: "http://latrunghieuvt1.pythonanywhere.com/"
+    baseURL: "http://127.0.0.1:8000/",
 })
