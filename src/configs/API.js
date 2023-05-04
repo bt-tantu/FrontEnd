@@ -7,18 +7,19 @@ export const endpoints = {
     'users':'/users/',
     'upload':'/upload/',
     'export':'/export/',
-    'register':'/register/'
+    'register':'/register/',
+    'marks': (userId) => `/users/${userId}/mark/`,
 }
 
 export const authAPI = () => axios.create({
-    baseURL: "http://latrunghieuvt1.pythonanywhere.com/",
-    //baseURL: "http://127.0.0.1:8000/",
+    // baseURL: "http://latrunghieuvt1.pythonanywhere.com/",
+    baseURL: "http://127.0.0.1:8000/",
     headers: {
         "Authorization": `Bearer ${cookie.load('access-token')}`
     }
 })
 
 export default axios.create({
-    baseURL: "http://latrunghieuvt1.pythonanywhere.com/"
-    // baseURL: "http://127.0.0.1:8000/",
+    // baseURL: "http://latrunghieuvt1.pythonanywhere.com/"
+    baseURL: "http://127.0.0.1:8000/",
 })

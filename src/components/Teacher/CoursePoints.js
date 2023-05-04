@@ -3,9 +3,11 @@ import API, { endpoints } from "../../configs/API"
 import { Button, Form, Modal, Table } from "react-bootstrap";
 import Loading from "../../layouts/Common/Loading";
 import ModalPopUp from "./ModalPopUp";
+import ModalPoint from "./ModalPoint";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from "react-router-dom";
+import { async } from "q";
 
 
 const CoursePoints = () => {
@@ -14,17 +16,40 @@ const CoursePoints = () => {
     const [upload, setUpload] = useState(null);
     const [exportList, setExportList] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
+    
 
+    const [data, setData] = useState(null)
+    const btnEditUser = document.querySelectorAll('.btn-editUser')
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const [showPoint, setShowPoint] = useState(false);
+    const handleClose = () => {
+        setShow(false)
+        setShowPoint(false)
+    };
+    const handleShow = async (e) => {
+        e.preventDefault();
+        setShow(true)
+        for (const element of btnEditUser) {
+            element.onclick = function(){
+                const parent = element.parentElement.parentNode
+                const user = {
+                    username: parent.children[3].textContent,
+                    email: parent.children[0].textContent,
+                    first_name: parent.children[1].textContent,
+                    last_name: parent.children[2].textContent
+                };
+                setData(user)
+            }
+        }
+    };
+
 
     const [showFile, setFileShow] = useState(false);
     const handleFileClose = () => setFileShow(false);
     const handleFileShow = () => setFileShow(true);
 
     const notify = () => toast("Upload file thành công");
-
+ 
     useEffect(() => {
         const loadCoursePoint = async () => {
             let res = await API.get(endpoints['users'])
@@ -44,7 +69,9 @@ const CoursePoints = () => {
         }
         exportFile()
 
-    }, [show])
+
+    }, [])
+
 
     if (coursePoints === null) return <Loading />
 
@@ -75,6 +102,22 @@ const CoursePoints = () => {
         exportFile();
     };
 
+    const handleShowPoint =() => {
+        setShowPoint(true)
+        for (const element of btnEditUser) {
+            element.onclick = function(){
+                const parent = element.parentElement.parentNode
+                const user = {
+                    username: parent.children[3].textContent,
+                    email: parent.children[0].textContent,
+                    first_name: parent.children[1].textContent,
+                    last_name: parent.children[2].textContent
+                };
+                setData(user)
+            }
+        }
+    }
+
     return (
         <>
             <h1 className="text-center">Chấm điểm</h1>
@@ -99,19 +142,26 @@ const CoursePoints = () => {
                             <td>{user.username}</td>
                             <td>
                                 <Button variant="primary" onClick={handleShow} className="btn-editUser">
-                                    Chỉnh sửa
+                                    Chấm điểm
                                 </Button>
                             </td>
-                            {show ? <ModalPopUp show={show} handleClose={handleClose} user={user} /> : false}
+                            <td>
+                                <Button variant="primary" onClick={handleShowPoint} className="btn-editUser">
+                                    Xem điểm
+                                </Button>
+                            </td>
                         </tr>
 
                     ))}
                 </tbody>
+
             </Table>
+            {showPoint && data ? <ModalPoint show={showPoint} handleClose={handleClose} user={data} arrUser={coursePoints} /> : false}
+            {show && data ? <ModalPopUp show={show} handleClose={handleClose} user={data} arrUser={coursePoints} /> : false}
 
             <Modal show={showFile} onHide={handleFileClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Edit User Content</Modal.Title>
+                    <Modal.Title>UploadFile User Content</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
