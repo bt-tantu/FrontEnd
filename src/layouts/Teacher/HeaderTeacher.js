@@ -1,5 +1,5 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 const HeaderTeacher = () => {
   return (
@@ -18,6 +18,9 @@ const HeaderTeacher = () => {
               </Link>
               <Link to="/teacher/courses" className="nav-link">
                 Danh sách lớp học
+              </Link>
+              <Link to="/teacher/list" className="nav-link">
+                Danh sách giảng viên
               </Link>
               <Link to="/" className="nav-link">
                 Tin nhắn

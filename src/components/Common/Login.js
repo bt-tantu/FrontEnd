@@ -11,11 +11,6 @@ const Login = () => {
     const [password, setPassword] = useState()
     const [loading, setLoading] = useState(false)
 
-    const login = (evt) => {
-        evt.preventDefault()
-
-    }
-
     return (
         <>
             <Container fluid={true}>

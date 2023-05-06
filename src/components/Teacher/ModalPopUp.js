@@ -86,8 +86,8 @@ const ModalPopUp =({show, handleClose, user: {username, email, first_name, last_
                         <Form.Group className="mb-3" controlId="formPlaintextMark">
                             <Form.Label>Mark Type</Form.Label>
                             <Form.Select onChange={e=>setMarkType(e.target.value)}>
-                                <option value="1">Giữa Kỳ</option>
-                                <option value="2">Cuối Kỳ</option>
+                                <option value="1">Điểm GK</option>
+                                <option value="2">Điểm CK</option>
                             </Form.Select>
                         </Form.Group>
                         

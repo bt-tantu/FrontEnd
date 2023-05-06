@@ -8,7 +8,7 @@ import { useParams } from "react-router";
 const ModalPopUp =({show, handleClose, user: {username, email, first_name, last_name}, arrUser})=>{
     const {courseId} = useParams();
     const userId = arrUser.findIndex(user => user.email === email) + 1;
-    const markType = ['Giữa Kỳ', 'Cuối Kỳ']
+    const markType = ['Điểm GK', 'Điểm CK']
     const [point, setPoint] = useState(null);
     let course = false
 

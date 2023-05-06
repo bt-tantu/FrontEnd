@@ -13,6 +13,7 @@ import Page404 from './views/Page404';
 import ChatRoom from './components/Common/ChatRoom';
 import Classes from './components/Teacher/Classes';
 import { createContext, useEffect, useState } from 'react';
+import { Container } from 'react-bootstrap';
 
 const UserContext = createContext()
 
@@ -25,27 +26,21 @@ function App() {
   return (
     <UserContext.Provider value={user}>
       <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<LoginForm />} />
-          <Route path='/login' element={<LoginForm />} />
-          <Route path='/register' element={<RegisterForm />} />
-          <Route path='/forget-pass' element={<ForgetPassForm />} />
-          <Route path='/chat' element={<ChatRoom />}/>
-          <Route path='/admin'>
-
-
-          </Route>
-
-          <Route path='/teacher' element={<SecondLayout header={<HeaderTeacher/>}/>}>
-            <Route path='classes' element={<Classes />} />
-            <Route path='courses' element={<Courses />} />
-            <Route path='courses/:courseId' element={<CoursePoints />}/>
-          </Route>
-          <Route path='/student' element={<DefaultLayout header={<HeaderTeacher/>} sidebar={<></>}/>}>
-          {/* /courses/2/lessons */}
-          </Route>
-          <Route path='*' element={<Page404/>}></Route>
-        </Routes>
+        <HeaderTeacher />
+        <Container>
+          <Routes>
+            <Route path='/' element={<LoginForm />} />
+            <Route path='/login' element={<LoginForm />} />
+            <Route path='/register' element={<RegisterForm />} />
+            <Route path='/forget-pass' element={<ForgetPassForm />} />
+            <Route path='/chat' element={<ChatRoom />} />
+            <Route path='/teacher' element={<SecondLayout />} />
+            <Route path='/teacher/:teacherId/courses' element={<Courses />} />
+            <Route path='/courses/:courseId' element={<CoursePoints />} />
+            {/* <Route path='/teacher/:teacherId/courses/:courseId' element={<CoursePoints />} /> */}
+            <Route path='*' element={<Page404 />}></Route>
+          </Routes>
+        </Container>
       </BrowserRouter>
 
     </UserContext.Provider>

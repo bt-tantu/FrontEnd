@@ -156,38 +156,38 @@ const CoursePoints = () => {
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Email</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
+                        <th>No.</th>
+                        <th>MSSV</th>
+                        <th>Họ và tên lót</th>
+                        <th>Tên</th>
                         <th>Giữa kỳ</th>
                         <th>Cuối kỳ</th>
+                        <th>Chấm điểm</th>
+                        <th>Xem điểm</th>
                     </tr>
                 </thead>
                 <tbody>
                     {coursePoints.map((user, index) => {
-                        let gk = user.mark.find(item => item.mark_type === "Giữa kỳ") 
-                        let ck = user.mark.find(item => item.mark_type === "Cuối kỳ")
+                        let gk = user.mark.find(item => item.mark_type === "Điểm GK") 
+                        let ck = user.mark.find(item => item.mark_type === "Điểm CK")
                         return (
                         <tr className="btn-doubleClick" key={index}>
                             <td>{index + 1}</td>
                             <td>{user.email}</td>
                             <td>{user.first_name}</td>
                             <td>{user.last_name}</td>
-                            <td>{user.username}</td>
                             <td>{
                               gk ? gk.grade : ''
                             }</td>
                             <td>{ck ? ck.grade : ''}</td>
                             <td>
                                 <Button variant="primary" onClick={handleShow} className="btn-editUser">
-                                    Chấm điểm
+                                    Edit
                                 </Button>
                             </td>
                             <td>
                                 <Button variant="primary" onClick={handleShowPoint} className="btn-editUser">
-                                    Xem điểm
+                                    View
                                 </Button>
                             </td>
                         </tr>
