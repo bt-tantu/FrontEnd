@@ -14,17 +14,16 @@ import ChatRoom from './components/Common/ChatRoom';
 import Classes from './components/Teacher/Classes';
 import { createContext, useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
+import { useReducer } from 'react';
+import userReducer from './reducers/UserReducer';
+import { UserContext } from './configs/MyContext';
 
-const UserContext = createContext()
 
 function App() {
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-  }, [])
+  const [user, dispatch] = useReducer(userReducer || null)
 
   return (
-    <UserContext.Provider value={user}>
+    <UserContext.Provider value={[user, dispatch]}>
       <BrowserRouter>
         <HeaderTeacher />
         <Container>
@@ -42,8 +41,8 @@ function App() {
           </Routes>
         </Container>
       </BrowserRouter>
-
     </UserContext.Provider>
+      
   );
 }
 
