@@ -43,7 +43,7 @@ const LoginForm = () => {
         process()
     }
 
-    if (user !== null)
+    if (user)
         return <Navigate to="/" />
 
 

@@ -5,7 +5,7 @@ import { UserContext } from "../../configs/MyContext";
 
 const HeaderTeacher = () => {
   const [user, dispatch] = useContext(UserContext)
-  console.info(user.username)
+  console.info('::::', user)
 
   let userInfo = (
     <>
@@ -20,7 +20,7 @@ const HeaderTeacher = () => {
     })
   }
 
-  if (user !== null)
+  if (user)
     userInfo = (
       <>
         <Link to="/teacher" className="nav-link text-success">
@@ -39,10 +39,11 @@ const HeaderTeacher = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Link to="/" className="nav-link active">Trang chủ</Link>
-              <Link to="/" className="nav-link">Diễn đàn</Link>
+              <Link to="/teacher/forum" className="nav-link">Diễn đàn</Link>
               <Link to="/teacher/courses" className="nav-link">Danh sách lớp học</Link>
               <Link to="/teacher/list" className="nav-link">Danh sách giảng viên</Link>
               <Link to="/" className="nav-link">Tin nhắn</Link>
+              {user && <Link to="/user-info" className="nav-link">{user.username}</Link>}
               {userInfo}
             </Nav>
             {/* <Nav>

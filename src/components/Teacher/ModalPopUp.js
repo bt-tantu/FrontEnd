@@ -58,17 +58,17 @@ const ModalPopUp =({show, handleClose, user: {username, email, first_name, last_
     return(
         <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                <Modal.Title>Point User Content</Modal.Title>
+                <Modal.Title>Chấm điểm</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
                     <Form onSubmit={savePoint} id="myForm">
                         <Form.Group className="mb-3" controlId="formPlaintextEmail">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" 
-                                        value={email}
+                            <Form.Label>Họ và tên</Form.Label>
+                            <Form.Control type="email"
+                                        value={`${first_name} ${last_name}`}
                                         disabled
-                                        placeholder="Email..." />
+                            />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formPlaintextGrade">
                             <Form.Label>Grade</Form.Label>
@@ -91,7 +91,7 @@ const ModalPopUp =({show, handleClose, user: {username, email, first_name, last_
                             </Form.Select>
                         </Form.Group>
                         
-                        <Button variant="primary" onClick={savePoint} type="button">Đăng nhập</Button>
+                        <Button variant="primary" onClick={savePoint} type="button">Khóa điểm</Button>
                     </Form>
                 </Modal.Body>
 

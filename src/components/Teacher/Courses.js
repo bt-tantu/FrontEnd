@@ -1,17 +1,19 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import API, { endpoints } from "../../configs/API"
 import { Outlet } from "react-router-dom"
 import { Button, Card, Row } from "react-bootstrap"
 import Loading from "../../layouts/Common/Loading"
 import ItemListCourse from "../../layouts/ItemListCourse"
+import { UserContext } from "../../configs/MyContext"
 
 const Courses = () => {
     const [courses, setCourses] = useState(null)
+    const [user, dispatch] = useContext(UserContext)
 
     useEffect(() => {
         const loadCourses = async () => {
             let res = await API.get(`${endpoints['courses']}`)
-            setCourses(res.data)
+            setCourses(res?.data?.filter(course => course.tutor.id === user.id))
         }
 
         loadCourses()

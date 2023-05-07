@@ -26,8 +26,8 @@ const CoursePoints = () => {
         setShow(false)
         setShowPoint(false)
     };
-    const handleShow = async (e) => {
-        e.preventDefault();
+    const handleShow = async (userId) => {
+        
         setShow(true)
         for (const element of btnEditUser) {
             element.onclick = function(){

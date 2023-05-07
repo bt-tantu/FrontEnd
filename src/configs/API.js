@@ -9,6 +9,8 @@ export const endpoints = {
     'login':'/o/token/',
     'current-user': '/user/current-user/',
     'check-teacher': '/check-teacher/',
+    'create-forum': '/forum/',
+    'forum-detail': (forumId) => `/forum/${forumId}`,
     'export':'/export/',
     'register':'/register/',
     'marks': (userId) => `/users/${userId}/mark/`,
