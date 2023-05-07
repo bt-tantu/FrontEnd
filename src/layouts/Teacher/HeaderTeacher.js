@@ -5,7 +5,7 @@ import { UserContext } from "../../configs/MyContext";
 
 const HeaderTeacher = () => {
   const [user, dispatch] = useContext(UserContext)
-  console.info(user.username)
+  console.info(user)
 
   let userInfo = (
     <>
@@ -24,7 +24,7 @@ const HeaderTeacher = () => {
     userInfo = (
       <>
         <Link to="/teacher" className="nav-link text-success">
-          <img alt={user.username} src={user.username} width="40" className="rounded-circle" />Welcome {user.username}
+          {/* <img alt={user.username} src={user.username} width="40" className="rounded-circle" />Welcome {user.username} */}
         </Link>
         <button onClick={logout} className="btn btn-success">Đăng xuất</button>
       </>

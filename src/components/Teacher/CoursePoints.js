@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import API, { endpoints } from "../../configs/API"
+import API, { endpoints, exportAPI } from "../../configs/API"
 import { Button, Col, Container, Form, Modal, Row, Table } from "react-bootstrap";
 import Loading from "../../layouts/Common/Loading";
 import ModalPopUp from "./ModalPopUp";
@@ -13,6 +13,7 @@ import { async } from "q";
 const CoursePoints = () => {
     let {courseId} = useParams();
     const [coursePoints, setCoursePoints] = useState(null);
+    const [rawData, setRawData] = useState(null);
     const [upload, setUpload] = useState([]);
     const [exportList, setExportList] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -53,6 +54,7 @@ const CoursePoints = () => {
         const loadCoursePoint = async () => {
             let res = await API.post(`${endpoints['courses']}${courseId}/mark/`)
             const student_id = [...new Set(res.data.map(item => item.student.id))]
+            setRawData(res.data)
 
             const fdata = student_id.map(id =>{ 
                 let filter_stu = res.data.filter(item => item.student.id == id)
@@ -122,11 +124,20 @@ const CoursePoints = () => {
         }
     };
 
-    const handleExportFile = () => {
+    const handleExportFile = (e) => {
         const exportFile = async () => {
-            let res = await API.post(endpoints['export'])
-            console.log(res.data)
-            setUpload(res.data)
+            let data = rawData.map(item => {
+                return {
+                    'Grade': item.grade,
+                    'Course Name': item.course.subject,
+                    'Student Number': item.student.student_number,
+                    'Mark Type': item.mark_type.type 
+                }
+            })
+            console.log(data)
+            await exportAPI.post(endpoints['register'], {students: data})
+    
+            // setUpload(res.data)
         }
         exportFile();
     };
@@ -151,7 +162,7 @@ const CoursePoints = () => {
         <Container>
             <h1 className="text-center">Chấm điểm</h1>
             <Button variant="primary" onClick={handleFileShow} className="m-2 align-items-end">Import</Button>
-            <Button variant="primary" onClick={handleExportFile} className="align-items-end">Export</Button>
+            <a onClick={(e) => handleExportFile(e)} className="align-items-end btn btn-primary" download="export_dataframe.csv">Export</a>
             <ToastContainer />  
             <Table striped bordered hover>
                 <thead>

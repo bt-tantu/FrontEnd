@@ -17,6 +17,8 @@ import { Container } from 'react-bootstrap';
 import { useReducer } from 'react';
 import userReducer from './reducers/UserReducer';
 import { UserContext } from './configs/MyContext';
+import FluidLayout from './layouts/FluidLayout';
+import SearchStudent from './components/Teacher/SearchStudent';
 
 
 function App() {
@@ -36,6 +38,8 @@ function App() {
             <Route path='/teacher' element={<SecondLayout />} />
             <Route path='/teacher/:teacherId/courses' element={<Courses />} />
             <Route path='/courses/:courseId' element={<CoursePoints />} />
+            <Route path='/teacher/student' element={<FluidLayout header={HeaderTeacher}><SearchStudent /></FluidLayout>} />
+            {/* <Route path='/search' element={< />} /> */}
             {/* <Route path='/teacher/:teacherId/courses/:courseId' element={<CoursePoints />} /> */}
             <Route path='*' element={<Page404 />}></Route>
           </Routes>
