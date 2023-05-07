@@ -22,6 +22,9 @@ import moment from 'moment';
 import CreateForum from './layouts/Common/CreateForum';
 import FluidLayout from './layouts/FluidLayout';
 import SearchStudent from './components/Teacher/SearchStudent';
+import EditForum from './layouts/EditForum';
+import DeleteForum from './layouts/DeleteForum';
+
 moment().local()
 
 function App() {
@@ -40,6 +43,8 @@ function App() {
             <Route path='/chat' element={<ChatRoom />} />
             <Route path='/teacher' element={<SecondLayout />} />
             <Route path='/teacher/forum' element={<ListForum />} />
+            <Route path='/teacher/forum/:forumId/edit' element={<EditForum />} />
+            <Route path='/teacher/forum/:forumId/delete' element={<DeleteForum />} />
             <Route path='/teacher/forum/create' element={<CreateForum />} />
             <Route path='/teacher/forum/:forumId' element={<ForumDetail />}/>
             <Route path='/teacher/:teacherId/courses' element={<Courses />} />
