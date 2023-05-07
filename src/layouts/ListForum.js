@@ -5,6 +5,8 @@ import Loading from "./Common/Loading";
 import { useEffect } from "react";
 import axios from 'axios';
 import ItemListForum from "./Teacher/ItemListForum";
+import { authAPI, endpoints } from "../configs/API";
+
 
 const ListForum = () => {
 
@@ -13,15 +15,17 @@ const ListForum = () => {
 
 
     useEffect(() => {
-        axios
-            .get('http://127.0.0.1:8000/forum/')
-            .then((res) => {
-                setForum(res.data);
-                console.log(':::', res.data)
-            })
-            .catch((err) => {
+        const getForum = async () => {
+            try {
+                let res = await authAPI.get(endpoints['create-forum'])
+                if(res.data) {
+                    setForum(res.data);
+                }
+            } catch(err) {
                 console.log(err);
-            });
+            }
+        }
+        getForum()
     }, []);
 
     if (forum === null) return <Loading />

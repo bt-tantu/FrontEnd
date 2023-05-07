@@ -5,6 +5,7 @@ import Loading from "./Common/Loading";
 import { useEffect } from "react";
 import axios from 'axios';
 import ItemListTeacher from "./Teacher/ItemListTeacher";
+import AuthAPI from "../configs/AuthAPI";
 
 const SecondLayout = ({ header }) => {
 
@@ -13,16 +14,16 @@ const SecondLayout = ({ header }) => {
 
 
     useEffect(() => {
-        axios
+        AuthAPI
             .get('http://127.0.0.1:8000/users/')
             .then((res) => {
-                setUserTeacher(res.data);
+                setUserTeacher(res.data.filter(item => item.groups[0] === 1));
                 console.log(':::', res.data)
             })
             .catch((err) => {
                 console.log(err);
             });
-        axios
+        AuthAPI
             .get('http://127.0.0.1:8000/check-student/')
             .then((res) => {
                 setIsStudent(res.status === 200 ? true : false);
@@ -65,9 +66,8 @@ const SecondLayout = ({ header }) => {
                     <tbody>
                         {userTeacher.map((userTeacherList, index) => {
                             return (
-
                                 <tr key={index}>
-                                    <td>{userTeacherList.id}</td>
+                                    <td>{userTeacherList.groups}</td>
                                     <td>{userTeacherList.first_name}</td>
                                     <td>{userTeacherList.last_name}</td>
                                     <td>{userTeacherList.email}</td>

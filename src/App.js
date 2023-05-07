@@ -20,7 +20,8 @@ import ListForum from './layouts/ListForum';
 import ForumDetail from './layouts/ForumDetail';
 import moment from 'moment';
 import CreateForum from './layouts/Common/CreateForum';
-
+import FluidLayout from './layouts/FluidLayout';
+import SearchStudent from './components/Teacher/SearchStudent';
 moment().local()
 
 function App() {
@@ -43,6 +44,8 @@ function App() {
             <Route path='/teacher/forum/:forumId' element={<ForumDetail />}/>
             <Route path='/teacher/:teacherId/courses' element={<Courses />} />
             <Route path='/courses/:courseId' element={<CoursePoints />} />
+            <Route path='/teacher/student' element={<FluidLayout header={HeaderTeacher}><SearchStudent /></FluidLayout>} />
+            {/* <Route path='/search' element={< />} /> */}
             {/* <Route path='/teacher/:teacherId/courses/:courseId' element={<CoursePoints />} /> */}
             <Route path='*' element={<Page404 />}></Route>
           </Routes>

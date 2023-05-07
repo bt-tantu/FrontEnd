@@ -3,7 +3,8 @@ import { Form, Link, useParams } from "react-router-dom"
 import Loading from "./Common/Loading"
 import Moment from "react-moment"
 import { useEffect, useState } from "react"
-import API, { authAPI, endpoints } from "../configs/API"
+import API, { endpoints } from "../configs/API"
+import authAPI, { endpointsauth } from "../configs/AuthAPI"
 
 const ForumDetail = () => {
 
@@ -13,30 +14,20 @@ const ForumDetail = () => {
     const [content, setContent] = useState("")
     const [loading, setLoading] = useState(false)
 
+
+    console.info("Xinchao")
     useEffect(() => {
         const loadForum = async () => {
-            let res = await API().get(endpoints['forum-detail'](forumId))
+            let res = await API.get(endpoints['forum-detail'](forumId))
             console.info(res.data)
             setForum(res.data)
         }
         loadForum()
     }, [forumId]);
 
-    // useEffect(() => {
-    //     axios
-    //         .get('http://127.0.0.1:8000/forum/')
-    //         .then((res) => {
-    //             setForum(res.data);
-    //             console.log(':::', res.data)
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         });
-    // }, []);
-
     useEffect(() => {
         let loadComments = async () => {
-            let res = await API.get(endpoints['comments'](forumId))
+            let res = await API.get(endpoints['comment'](forumId))
             setComments(res.data)
         }
 
@@ -48,7 +39,7 @@ const ForumDetail = () => {
 
         const process = async () => {
             try {
-                let res = await authAPI().post(endpoints['comments'](forumId), {
+                let res = await authAPI().post(endpointsauth['comment'](forumId), {
                     'content': content
                 })
 
@@ -67,7 +58,7 @@ const ForumDetail = () => {
 
     return (
         <>
-        <h1>Chủ đề</h1>
+        <h1>Chủ đề {}</h1>
             <hr></hr>
             
         </>

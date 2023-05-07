@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { Link, Navigate, useParams } from "react-router-dom";
-import API, { authAPI, endpoints } from "../../configs/API";
+import API, { endpoints } from "../../configs/API";
 import cookie from "react-cookies"
 import Loading from "../../layouts/Common/Loading";
 import { useContext } from "react";
 import { UserContext } from "../../configs/MyContext";
+import AuthAPI,{ endpointsauth } from "../../configs/AuthAPI";
 
 
 const LoginForm = () => {
@@ -27,10 +28,13 @@ const LoginForm = () => {
             })
 
             cookie.save('access-token', res.data.access_token)
-            let user = await authAPI().get(endpoints['current-user'])
+            console.info(res.data.access_token)
+            let user = await AuthAPI.get(endpoints['current-user'])
             cookie.save('current-user', user.data)
+
+
             console.info(user.data)
-            let check = await authAPI().get(endpoints['check-teacher'])
+            let check = await AuthAPI.get(endpoints['check-teacher'])
             // console.info(check.status)
 
             setLoading(false)
